@@ -1,0 +1,9 @@
+[alias]
+     s = status -s
+     ss = status
+     cm = commit -m
+     diffc = diff --cached
+     t = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+
+[core]
+     editor = "vim"

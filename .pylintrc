@@ -1,0 +1,16 @@
+[MASTER]
+
+disable=
+    C0114, # missing-module-docstring
+    C0103, # invalid-name
+    R0201, # method could be a function
+    E0401, # unable to import (doesn't help if Docker is used)
+    R0902, # too many instance attributes
+
+[DESIGN]
+
+# Maximum number of locals for function / method body
+max-locals=25
+
+# Maximum number of branch for function / method body.
+max-branches=20
