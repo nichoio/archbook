@@ -9,9 +9,7 @@ syntax on
 :match ExtraWhitespace /\s\+$/
 
 :set expandtab
-                :set shiftwidth=4
 :set smarttab
-:set tabstop=4
 :set autoindent
 
 :set hlsearch
@@ -68,3 +66,10 @@ autocmd BufNewFile,BufRead *Dockerfile* set syntax=dockerfile
 autocmd FileType vim setlocal commentstring=\"\ %s
 autocmd FileType yaml setlocal commentstring=#\ %s
 autocmd FileType python setlocal commentstring=#\ %s
+
+" Shift widths
+:set shiftwidth=4
+:set tabstop=4
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType html       setlocal shiftwidth=2 tabstop=2
+autocmd FileType vue        setlocal shiftwidth=2 tabstop=2
