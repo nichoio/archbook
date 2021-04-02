@@ -16,3 +16,6 @@
 [submodule "vim-packs/start/vim-commentary"]
 	path = vim-packs/start/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
+[submodule "vim-packs/start/vim-vue"]
+	path = vim-packs/start/vim-vue
+	url = git@github.com:posva/vim-vue.git

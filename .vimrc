@@ -47,7 +47,7 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 let g:NERDTreeNodeDelimiter = "\u00a0"
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
-let NERDTreeIgnore=['^.git$', '^.github$', '\.pyc$', '^__pycache__$']
+let NERDTreeIgnore=['^.git$', '\.pyc$', '^__pycache__$']
 
 " Syntastic
 set statusline+=%#warningmsg#
@@ -61,6 +61,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers=['eslint']
 
 autocmd BufNewFile,BufRead *Dockerfile* set syntax=dockerfile
+autocmd BufNewFile,BufRead *eslintrc* set syntax=json
 
 " Commentary
 autocmd FileType vim setlocal commentstring=\"\ %s
@@ -71,5 +72,6 @@ autocmd FileType python setlocal commentstring=#\ %s
 :set shiftwidth=4
 :set tabstop=4
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType json       setlocal shiftwidth=2 tabstop=2
 autocmd FileType html       setlocal shiftwidth=2 tabstop=2
 autocmd FileType vue        setlocal shiftwidth=2 tabstop=2
