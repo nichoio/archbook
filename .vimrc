@@ -1,6 +1,8 @@
 :colorscheme desert
 set updatetime=750
 syntax on
+set cursorcolumn
+set cursorline
 :set number
 :set colorcolumn=80
 :hi ColorColumn ctermbg=darkgreen
@@ -21,8 +23,10 @@ syntax on
 :set noshowmode
 
 nmap <C-w> <C-w>w
-nmap <S-Down> :move +1<CR>
-nmap <S-Up> :move -2<CR>
+nmap <S-Down> :m+1<CR>
+nmap <S-Up> :m-2<CR>
+xnoremap <S-Down> :m'>+<CR>gv
+xnoremap <S-Up> :m-2<CR>gv
 nmap 4 $
 nmap r <C-r>
 imap <S-Tab> <C-d>
@@ -75,3 +79,8 @@ autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType json       setlocal shiftwidth=2 tabstop=2
 autocmd FileType html       setlocal shiftwidth=2 tabstop=2
 autocmd FileType vue        setlocal shiftwidth=2 tabstop=2
+
+" Omnifunc
+filetype plugin on
+:set omnifunc=syntaxcomplete#Complete
+autocmd FileType vue setlocal omnifunc=htmlcomplete#CompleteTags
