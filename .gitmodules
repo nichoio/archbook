@@ -16,3 +16,6 @@
 [submodule "vim-packs/start/vim-commentary"]
 	path = vim-packs/start/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
+[submodule "vim-packs/start/vim-colors-solarized"]
+	path = vim-packs/start/vim-colors-solarized
+	url = git@github.com:altercation/vim-colors-solarized.git
