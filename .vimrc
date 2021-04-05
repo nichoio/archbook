@@ -1,11 +1,12 @@
-:colorscheme desert
+set background=dark
+colorscheme solarized
 set updatetime=750
 syntax on
 set cursorcolumn
 set cursorline
 :set number
 :set colorcolumn=80
-:hi ColorColumn ctermbg=darkgreen
+:hi ColorColumn ctermbg=white
 " trailing spaces
 :highlight ExtraWhitespace ctermbg=darkgreen
 :match ExtraWhitespace /\s\+$/
@@ -25,13 +26,15 @@ set cursorline
 nmap <C-w> <C-w>w
 nmap <S-Down> :m+1<CR>
 nmap <S-Up> :m-2<CR>
-xnoremap <S-Down> :m'>+<CR>gv
-xnoremap <S-Up> :m-2<CR>gv
 nmap 4 $
 nmap r <C-r>
+nmap <expr> <C-s> &background=='dark'  ? ':set background=light<CR>' : ':set background=dark<CR>'
+xnoremap <S-Down> :m'>+<CR>gv
+xnoremap <S-Up> :m-2<CR>gv
 imap <S-Tab> <C-d>
 vmap <Tab> >gv
 vmap <S-Tab> <gv
+
 
 " requires clipboard+ (gvim in arch)
 :set clipboard=unnamedplus
