@@ -19,3 +19,6 @@
 [submodule "vim-packs/start/vim-colors-solarized"]
 	path = vim-packs/start/vim-colors-solarized
 	url = git@github.com:altercation/vim-colors-solarized.git
+[submodule "vim-packs/start/vim-nerdtree-tabs"]
+	path = vim-packs/start/vim-nerdtree-tabs
+	url = git@github.com:jistr/vim-nerdtree-tabs.git

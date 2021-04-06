@@ -34,7 +34,7 @@ xnoremap <S-Up> :m-2<CR>gv
 imap <S-Tab> <C-d>
 vmap <Tab> >gv
 vmap <S-Tab> <gv
-
+map <C-b> <plug>NERDTreeTabsToggle<CR>
 
 " requires clipboard+ (gvim in arch)
 :set clipboard=unnamedplus
@@ -47,14 +47,16 @@ highlight GitGutterChange ctermfg=3
 highlight GitGutterDelete ctermfg=1
 highlight GitGutterChangeDelete ctermfg=4
 
+" NERDtree + NERDtree-tabs
 autocmd VimEnter * NERDTree | wincmd p
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
-" Fix visual bug in manjaro
-let g:NERDTreeNodeDelimiter = "\u00a0"
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
 let NERDTreeIgnore=['^.git$', '\.pyc$', '^__pycache__$']
+let g:nerdtree_tabs_open_on_console_startup = 1
+" Fix visual bug in manjaro
+let g:NERDTreeNodeDelimiter = "\u00a0"
 
 " Syntastic
 set statusline+=%#warningmsg#
