@@ -23,9 +23,14 @@ set cursorline
 :set scrolloff=3
 :set noshowmode
 
-nmap <C-w> <C-w>w
 nmap <S-Down> :m+1<CR>
 nmap <S-Up> :m-2<CR>
+nmap <A-PageUp> :tabprevious<CR>
+nmap <A-PageDown> :tabnext<CR>
+nmap <A-Left> :wincmd h<CR>
+nmap <A-Right> :wincmd l<CR>
+nmap <A-Up> :wincmd k<CR>
+nmap <A-Down> :wincmd j<CR>
 nmap 4 $
 nmap r <C-r>
 nmap <expr> <C-s> &background=='dark'  ? ':set background=light<CR>' : ':set background=dark<CR>'
