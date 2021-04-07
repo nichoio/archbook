@@ -23,23 +23,30 @@ set cursorline
 :set scrolloff=3
 :set noshowmode
 
-nmap <S-Down> :m+1<CR>
-nmap <S-Up> :m-2<CR>
-nmap <A-PageUp> :tabprevious<CR>
-nmap <A-PageDown> :tabnext<CR>
-nmap <A-Left> :wincmd h<CR>
-nmap <A-Right> :wincmd l<CR>
-nmap <A-Up> :wincmd k<CR>
-nmap <A-Down> :wincmd j<CR>
-nmap 4 $
-nmap r <C-r>
-nmap <expr> <C-s> &background=='dark'  ? ':set background=light<CR>' : ':set background=dark<CR>'
+function StoreSession() " store session under home dir
+    let l:projectroot = substitute(trim(execute('pwd')), '/', '_', 'g')
+    let l:sessionpath = '~/.vim/sessions/' . l:projectroot . '.vim'
+    :execute 'Obsession' l:sessionpath
+endfunction
+
+nnoremap <silent> <S-Down> :m+1<CR>
+nnoremap <silent> <S-Up> :m-2<CR>
+nnoremap <silent> <A-PageUp> :tabprevious<CR>
+nnoremap <silent> <A-PageDown> :tabnext<CR>
+nnoremap <silent> <A-Left> :wincmd h<CR>
+nnoremap <silent> <A-Right> :wincmd l<CR>
+nnoremap <silent> <A-Up> :wincmd k<CR>
+nnoremap <silent> <A-Down> :wincmd j<CR>
+nnoremap 4 $
+nnoremap r <C-r>
+nnoremap <expr> <C-l> &background=='dark'  ? ':set background=light<CR>' : ':set background=dark<CR>'
+nnoremap <C-s> :call StoreSession()<CR>
 xnoremap <S-Down> :m'>+<CR>gv
 xnoremap <S-Up> :m-2<CR>gv
-imap <S-Tab> <C-d>
-vmap <Tab> >gv
-vmap <S-Tab> <gv
-map <C-b> <plug>NERDTreeTabsToggle<CR>
+inoremap <S-Tab> <C-d>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+noremap <C-b> <plug>NERDTreeTabsToggle<CR>
 
 " requires clipboard+ (gvim in arch)
 :set clipboard=unnamedplus
