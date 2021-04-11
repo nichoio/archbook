@@ -1,0 +1,20 @@
+" these commands are ran after loading all other *.vim files (see :scriptname)
+autocmd BufNewFile,BufRead *Dockerfile* set syntax=dockerfile
+autocmd BufNewFile,BufRead *eslintrc* set syntax=json
+
+" Commentary
+autocmd FileType vim setlocal commentstring=\"\ %s
+autocmd FileType yaml setlocal commentstring=#\ %s
+autocmd FileType python setlocal commentstring=#\ %s
+autocmd FileType diff setlocal commentstring='\ %s'
+
+" Shift widths
+:set shiftwidth=4
+:set tabstop=4
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType json       setlocal shiftwidth=2 tabstop=2
+autocmd FileType html       setlocal shiftwidth=2 tabstop=2
+autocmd FileType vue        setlocal shiftwidth=2 tabstop=2
+
+" Omnifunc
+autocmd FileType vue setlocal omnifunc=htmlcomplete#CompleteTags

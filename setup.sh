@@ -4,9 +4,15 @@
 sudo pacman -S --noconfirm fish gvim tmux
 chsh -s /bin/fish
 
+# vim
 mkdir -p ~/.vim/pack
+mkdir -p ~/.vim/after/plugin
+mkdir ~/.vim/sessions
 ln -s ./.vimrc ~/.vimrc
+ln -s ./.vimrc_after ~/.vim/after/plugin/after.vim
 ln -s ./.vim-packs ~/.vim/pack/git-packs
+
+# misc
 ln -s ./.tmux.conf ~/.tmux.conf
 ln -s ./.pylintrc ~/.pylintrc
 ln -s ./fish/functions/ ~/.config/fish/functions
