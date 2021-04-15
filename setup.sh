@@ -26,3 +26,6 @@ sudo npm install eslint eslint-plugin-vue -g
 # TODO: try making more omf themes work (maybe related to powerline fonts)
 # TODO: install kubectl, install docker, add user to docker group
 # TODO: find ls tool that also displays dir size correctly (maybe with bar chart visualization)
+# TODO: use per directory history
+# TODO: add yay
+# TODO: install bat, delta
