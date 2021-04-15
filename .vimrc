@@ -62,6 +62,8 @@ inoremap <S-Tab> <C-d>
 inoremap <c-v> <esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+vnoremap 4 g_
+vnoremap x "_d
 noremap <C-b> <plug>NERDTreeTabsToggle<CR>
 
 " requires clipboard+ (gvim in arch)
@@ -94,6 +96,7 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
+let g:syntastic_loc_list_height = 5
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers=['eslint']
 

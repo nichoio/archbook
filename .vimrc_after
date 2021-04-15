@@ -6,7 +6,6 @@ autocmd BufNewFile,BufRead *eslintrc* set syntax=json
 autocmd FileType vim setlocal commentstring=\"\ %s
 autocmd FileType yaml setlocal commentstring=#\ %s
 autocmd FileType python setlocal commentstring=#\ %s
-autocmd FileType diff setlocal commentstring='\ %s'
 
 " Shift widths
 :set shiftwidth=4
