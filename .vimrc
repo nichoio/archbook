@@ -25,6 +25,20 @@ set cursorline
 :set scrolloff=3
 :set noshowmode
 
+" Check if NERDTree is open or active
+function IsNERDTreeOpen()
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+
+" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+" file, and we're not in vimdiff
+function SyncTree()
+  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+
 function StoreSession() " store session under home dir
     let l:projectroot = substitute(trim(execute('pwd')), '/', '_', 'g')
     let l:sessionpath = '~/.vim/sessions/' . l:projectroot . '.vim'
@@ -81,12 +95,12 @@ highlight GitGutterChangeDelete ctermfg=4
 autocmd VimEnter * NERDTree | wincmd p
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
+autocmd BufEnter * call SyncTree() "highlyight currently open buffer
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
 let NERDTreeIgnore=['^.git$', '\.pyc$', '^__pycache__$']
 let g:nerdtree_tabs_open_on_console_startup = 1
-" Fix visual bug in manjaro
-let g:NERDTreeNodeDelimiter = "\u00a0"
+let g:NERDTreeNodeDelimiter = "\u00a0" " Fix visual bug in manjaro
 
 " Syntastic
 set statusline+=%#warningmsg#
