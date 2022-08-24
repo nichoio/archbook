@@ -6,7 +6,10 @@
      b = branch
      co = checkout
      ap = add -p
-     reno = "!f() { git revert --no-commit HEAD~\"$1\".. ; }; f"
+
+     # drop last commit on local branch
+     rela = reset HEAD~1
+
      t = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
 
 [core]
