@@ -1,11 +1,12 @@
-alias dobash='(){ docker run -u root -it --rm --entrypoint= $1 /bin/bash ;}'
-alias dosh='(){ docker run -u root -it --rm --entrypoint= $1 /bin/sh ;}'
+alias dobash='(){ docker run -u root -it --pull always --rm --entrypoint= $1 /bin/bash ;}'
+alias dosh='(){ docker run -u root -it --pull always --rm --entrypoint= $1 /bin/sh ;}'
 alias doils='docker image ls'
 
 alias kall='(){kubectl api-resources --verbs=list --namespaced -o name  | xargs -n 1 kubectl get --show-kind --ignore-not-found --all-namespaces}'
 alias kally='(){kubectl api-resources --verbs=list --namespaced -o name  | xargs -n 1 kubectl get --ignore-not-found --all-namespaces -o yaml}'
 alias kalln='(){kubectl api-resources --verbs=list --namespaced -o name  | xargs -n 1 kubectl get --show-kind --ignore-not-found  -n $1}'
 alias kallny='(){kubectl api-resources --verbs=list --namespaced -o name  | xargs -n 1 kubectl get --show-kind --ignore-not-found  -n $1 -o yaml}'
+alias kname='(){kubectl get po,service,rs,deploy,sts,job,pvc,cm,secret,sa,role,rolebinding,netpol,ing -n $1}'
 
 function helpu() {  # Unpacks given Helm chart to a new folder under current directory.
     if [ "$1" = "" ]
@@ -24,6 +25,7 @@ function helpu() {  # Unpacks given Helm chart to a new folder under current dir
         helm repo update && helm pull somechart --untar
     fi
 
+    # cleanup
     helm repo remove somechart
 }
 
