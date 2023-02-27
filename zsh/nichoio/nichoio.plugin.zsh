@@ -8,7 +8,14 @@ alias kalln='(){kubectl api-resources --verbs=list --namespaced -o name  | xargs
 alias kallny='(){kubectl api-resources --verbs=list --namespaced -o name  | xargs -n 1 kubectl get --show-kind --ignore-not-found  -n $1 -o yaml}'
 alias kname='(){kubectl get po,service,rs,deploy,sts,job,pvc,cm,secret,sa,role,rolebinding,netpol,ing -n $1}'
 
-function helpu() {  # Unpacks given Helm chart to a new folder under current directory.
+function jwtd(){
+# Decode JSON Web token.
+# from https://gist.github.com/thomasdarimont/46358bc8167fce059d83a1ebdb92b0e7
+    jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$1"
+}
+
+function helpu() {
+# Download and unpack files of Helm chart in current directory
     if [ "$1" = "" ]
     then
       echo "must provide at least one argument: CHART-URL [CHART-NAME]"
