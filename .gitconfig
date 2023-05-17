@@ -7,10 +7,13 @@
      co = checkout
      ap = add -p
 
-     # drop last commit on local branch
+     # reset current commit. committed diff becomes unstaged
      rela = reset HEAD~1
 
+     # commit history. hide commits descending from HEAD, hide rebased commits.
      t = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+     ## show ALL commits
+     tt = log --reflog --all --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
 
 [core]
      editor = "vim"
