@@ -1,7 +1,13 @@
 # ---------- ALIASES ----------
 
+# run shell in container
 alias dobash='(){ docker run -u root -it --pull always --rm --entrypoint= $1 /bin/bash ;}'
 alias dosh='(){ docker run -u root -it --pull always --rm --entrypoint= $1 /bin/sh ;}'
+
+# run shell in container without pulling (for local images)
+alias dobashl='(){ docker run -u root -it --rm --entrypoint= $1 /bin/bash ;}'
+alias doshl='(){ docker run -u root -it --rm --entrypoint= $1 /bin/sh ;}'
+
 alias doils='docker image ls'
 alias dexec='(){ docker exec -it $1 /bin/bash ;}'
 
@@ -15,7 +21,7 @@ alias tf='terraform'
 
 # extend omz lib's grep alias
 # grep + ignore several dirs. grep can still be applied to excluded dirs manually
-alias grep='grep -in --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.terraform,test,tests}'
+alias grep='grep -in --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.terraform,dist,test,tests,node_modules}'
 alias cgrep='grep -C 2'
 alias ccgrep='grep -C 5'
 
