@@ -21,10 +21,12 @@ alias tf='terraform'
 
 # extend omz lib's grep alias
 # grep + ignore several dirs. grep can still be applied to excluded dirs manually
-alias grep='grep -in --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.terraform,dist,test,tests,node_modules}'
+alias grep='grep -in --color=auto --exclude="*.bin" --exclude="*.msgpack" --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.terraform,dist,test,tests,node_modules}'
 alias cgrep='grep -C 2'
 alias ccgrep='grep -C 5'
 
+# show contents of certificate
+alias crtshow='(){openssl x509 -noout -text -in $1}'
 
 # ---------- FUNCTIONS ----------
 
@@ -37,7 +39,7 @@ function jwtd(){
 function genpw(){
 # Generate string which can be used as password.
 # from https://unix.stackexchange.com/a/230676
-    tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' </dev/urandom | head -c 13  ; echo
+    LC_ALL=C tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' </dev/urandom | head -c 13  ; echo
 }
 
 function helpu() {
