@@ -15,6 +15,11 @@
      ## show ALL commits
      tt = log --reflog --all --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
 
+     # show all commits changing a file. Run as $ git f [FILENAME]
+     f = log --follow --
+     # show all commits changing a file and show diffs
+     ff = log -p --follow --
+
 [core]
      editor = "vim"
 
