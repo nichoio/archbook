@@ -67,7 +67,15 @@ function helpu() {
 
 function replall() {
     # find and replace all occurrences of arg1 by arg2 across all files in current directory
-    find . -type f -name "*" -print0 | xargs -0 sed -i "s/$1/$2/g"
+    # exclude .git folder when replacing. Also, only recommended to use replall on git repos because no backups of edited files are created.
+    if [ `uname` = "Darwin" ]
+    then
+        # see https://stackoverflow.com/questions/19242275
+        # and https://stackoverflow.com/questions/4247068
+        find . -type d -name .git -prune -o -type f -name "*" -print0 | LC_ALL=C xargs -0 sed -i '' -e "s/$1/$2/g"
+    else
+        find . -type d -name .git -prune -o -type f -name "*" -print0 | xargs -0 sed -i "s/$1/$2/g"
+    fi
 }
 
 function s3lastmod(){
