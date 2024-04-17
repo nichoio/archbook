@@ -10,6 +10,12 @@
      # reset current commit. committed diff becomes unstaged
      rela = reset HEAD~1
 
+     # Apply currently staged changes to current commit. Will require force push if this commit was already pushed
+     ams = commit --amend --no-edit
+
+     # Move the chosen branch tip to HEAD. Will require force push if branch already pushed
+     mvhead = "!git branch --force $1 HEAD #"
+
      # commit history. hide commits descending from HEAD, hide rebased commits.
      t = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
      ## show ALL commits
