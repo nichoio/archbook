@@ -25,6 +25,9 @@ alias grep='grep -in --color=auto --exclude="*.bin" --exclude="*.msgpack" --excl
 alias cgrep='grep -C 2'
 alias ccgrep='grep -C 5'
 
+# retrieve public ipv4 ip address
+alias myip='dig -4 TXT +short o-o.myaddr.l.google.com @ns1.google.com'
+
 # show contents of certificate
 alias crtshow='(){openssl x509 -noout -text -in $1}'
 
