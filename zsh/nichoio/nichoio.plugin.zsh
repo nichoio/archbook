@@ -34,9 +34,11 @@ alias crtshow='(){openssl x509 -noout -text -in $1}'
 # ---------- FUNCTIONS ----------
 
 function jwtd(){
-# Decode JSON Web token payload.
-# from https://gist.github.com/thomasdarimont/46358bc8167fce059d83a1ebdb92b0e7
-    jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$1"
+# Decode JSON Web token header and payload.
+# based on https://gist.github.com/thomasdarimont/46358bc8167fce059d83a1ebdb92b0e7
+    header=$(jq -R 'split(".") | .[0] | @base64d | fromjson' <<< "$1")
+    payload=$(jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$1")
+    echo "$header\n$payload"
 }
 
 function genpw(){
