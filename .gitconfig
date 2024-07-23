@@ -1,11 +1,12 @@
 [alias]
+     ap = add -p
+     b = branch
+     cm = commit -m
+     co = checkout
+     cp = cherry-pick
+     diffc = diff --cached
      s = status -s
      ss = status
-     cm = commit -m
-     diffc = diff --cached
-     b = branch
-     co = checkout
-     ap = add -p
 
      # reset current commit. committed diff becomes unstaged
      rela = reset HEAD~1
@@ -14,6 +15,7 @@
      ams = commit --amend --no-edit
 
      # Move the chosen branch tip to HEAD. Will require force push if branch already pushed
+     # After this, check out name-of branch to point HEAD to this branch
      mvhead = "!git branch --force $1 HEAD #"
 
      # commit history. hide commits descending from HEAD, hide rebased commits.
@@ -25,6 +27,9 @@
      f = log --follow --
      # show all commits changing a file and show diffs
      ff = log -p --follow --
+
+[push]
+     autoSetupRemote = true
 
 [core]
      editor = "vim"
