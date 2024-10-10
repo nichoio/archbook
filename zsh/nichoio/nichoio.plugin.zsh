@@ -43,9 +43,15 @@ function jwtd(){
 
 function genpw(){
 # Generate string which can be used as password.
+# Usage example: $ genpw 24
 # from https://unix.stackexchange.com/a/230676
 # exclude chars such as 0,O,o etc. to create easy-to-read passwords
-    LC_ALL=C tr -dc 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789!"#$%&()*+,-./:;<=>?@[]^_{|}~' </dev/urandom | head -c 13  ; echo
+    if [ "$1" = "" ]
+    then
+      LC_ALL=C tr -dc 'abcdefghijkmnpqrsuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789!#$%&()*,-./:;<=>?@[]^_{|}~' </dev/urandom | head -c 16  ; echo
+    else
+      LC_ALL=C tr -dc 'abcdefghijkmnpqrsuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789!#$%&()*,-./:;<=>?@[]^_{|}~' </dev/urandom | head -c $1  ; echo
+    fi
 }
 
 function helpu() {
