@@ -13,3 +13,5 @@ Zsh related files are located in `zsh/` (duh). `zsh/nichoio` is a plugin for Oh-
 Preliminary steps:
 * Install Nerd Font: `brew install font-hack-nerd-font`
 * In Terminal which is used for Nvim (e.g. iTerm), apply Nerd Font
+
+Then, copy the contents of `nvim/macos` to `~/.config/nvim`.

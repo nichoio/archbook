@@ -1,6 +1,13 @@
+-- global settings (o)
 -- display spaces, tabs, trailing spaces etc.
 vim.o.listchars = 'space:·,trail:-,nbsp:+,tab:▏ ,eol:↴'
 vim.o.list = true
+
+-- window settings (wo)
+vim.wo.number = true
+
+-- use system clipboard for yank
+vim.api.nvim_set_option("clipboard", "unnamed")
 
 require("config.lazy")
 
@@ -13,13 +20,9 @@ require("nvim-tree").setup({
   },
   renderer = {
     group_empty = true,
-    icons = {
-        show = {
-            folder = false,
-        }
-    }
   },
   filters = {
-    custom = {"^\\.git"}
+    dotfiles = false,
+    git_ignored = false,
   },
 })
