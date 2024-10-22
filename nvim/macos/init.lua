@@ -15,11 +15,15 @@ map('v', '<S-Up>', '30k', { noremap = true, silent = true })
 map('n', '<S-Down>', '30j', { noremap = true, silent = true })
 map('v', '<S-Down>', '30j', { noremap = true, silent = true })
 
+-- Apply single indents in visual mode without leaving visual mode afterwards
+map('v', '<', '<gv', { noremap = true, silent = true })
+map('v', '>', '>gv', { noremap = true, silent = true })
+
 ----------- VIM SETTINGS -----------
 
 -- Global settings (o)
 -- display spaces, tabs, trailing spaces etc.
-vim.o.listchars = 'space:·,trail:-,nbsp:+,tab:▏ ,eol:↴'
+vim.o.listchars = 'space:·,trail:￮,nbsp:+,tab:▏ ,eol:↴'
 vim.o.list = true
 
 -- Indent by using spaces instead of tabs
@@ -30,11 +34,29 @@ vim.o.shiftwidth = 4
 -- Editor settings (opt)
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.showmode = false  -- hide mode since we use lualine to display it
 
 -- Window settings (wo)
 vim.wo.number = true
+
 -- use system clipboard for yank
 vim.api.nvim_set_option('clipboard', 'unnamed')
+
+----------- COMMAND REMAPPINGS -----------
+
+-- map :qt to close tab
+vim.cmd('cabbrev qt tabclose') -- can't use nvim_create_user_command bc it only works with Uppercase remappings
+
+----------- AUTOCMDS -----------
+
+-- Automatically open nvim-tree in a left split when opening a new tab
+vim.api.nvim_create_autocmd("TabEnter", {
+  callback = function()
+    if not require("nvim-tree.view").is_visible() then
+      require("nvim-tree.api").tree.open()
+    end
+  end
+})
 
 ----------- NVIM CONFIG AND PLUGINS -----------
 
@@ -82,5 +104,12 @@ require('lualine').setup({
         lualine_c = { {'filename', path = 1} },
     -- display active LSP using above local function
         lualine_y = { lsp_server_name }
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { {'filename', path = 1} },
+        lualine_y = {},
+        lualine_z = {}
     }
 })
