@@ -1,3 +1,39 @@
+-- init.lua.
+-- Order of these settings matter!
+-- It's best to have the general settings on top because they affect how Key remappings are interpreted.
+
+----------- VIM SETTINGS -----------
+
+-- Global variables (g)
+-- remap leader key to space
+vim.g.mapleader = " "
+
+-- Global settings (o)
+-- display spaces, tabs, trailing spaces etc.
+vim.o.listchars = 'space:·,trail:￮,nbsp:+,tab:▏ ,eol:↴'
+vim.o.list = true
+
+-- Indent by using spaces instead of tabs
+vim.o.expandtab = true
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+
+-- Editor settings (opt)
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.showmode = false  -- hide mode since we use lualine to display it
+-- use thin blinking cursor everywhere. guicorsor settings are only partly applied by iTerm.
+vim.opt.guicursor = "n-v-c-sm:ver25-blinkon1,i-ci-ve:ver25-blinkon1,r-cr-o:ver25-blinkon1"
+
+-- Window settings (wo)
+vim.wo.number = true
+
+-- API settings (api)
+-- Change Git gutter color to green for added lines
+vim.api.nvim_set_hl(0, 'GitGutterAdd', { fg='#009900' })
+-- use system clipboard for yank
+vim.api.nvim_set_option('clipboard', 'unnamed')
+
 ----------- KEY REMAPPINGS -----------
 
 -- Move between windows
@@ -15,32 +51,22 @@ map('v', '<S-Up>', '30k', { noremap = true, silent = true })
 map('n', '<S-Down>', '30j', { noremap = true, silent = true })
 map('v', '<S-Down>', '30j', { noremap = true, silent = true })
 
+-- map new vertical split and new tab
+map('n', '<leader>s', ':vnew<CR>', { noremap = true, silent = true })
+map('n', '<leader>t', ':tabnew<CR>', { noremap = true, silent = true })
+
+-- open telescope plugin
+map('n', '<leader>g', ':Telescope live_grep<CR>', { noremap = true, silent = true })
+
+-- open Git blame
+map('n', '<leader>b', ':Git blame<CR>', { noremap = true, silent = true })
+
 -- Apply single indents in visual mode without leaving visual mode afterwards
 map('v', '<', '<gv', { noremap = true, silent = true })
 map('v', '>', '>gv', { noremap = true, silent = true })
 
------------ VIM SETTINGS -----------
-
--- Global settings (o)
--- display spaces, tabs, trailing spaces etc.
-vim.o.listchars = 'space:·,trail:￮,nbsp:+,tab:▏ ,eol:↴'
-vim.o.list = true
-
--- Indent by using spaces instead of tabs
-vim.o.expandtab = true
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
-
--- Editor settings (opt)
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.showmode = false  -- hide mode since we use lualine to display it
-
--- Window settings (wo)
-vim.wo.number = true
-
--- use system clipboard for yank
-vim.api.nvim_set_option('clipboard', 'unnamed')
+-- use q to toggle floating Neotree window. n is already used by 'next search result' and t by 'open in new tab' by Neotree itself 
+map('n', 'q', ":lua require('neo-tree.command').execute({ position = 'float', toggle = true })<CR>", { noremap = true, silent = true })
 
 ----------- COMMAND REMAPPINGS -----------
 
@@ -48,36 +74,35 @@ vim.api.nvim_set_option('clipboard', 'unnamed')
 vim.cmd('cabbrev qt tabclose') -- can't use nvim_create_user_command bc it only works with Uppercase remappings
 
 ----------- AUTOCMDS -----------
-
--- Automatically open nvim-tree in a left split when opening a new tab
-vim.api.nvim_create_autocmd("TabEnter", {
-  callback = function()
-    if not require("nvim-tree.view").is_visible() then
-      require("nvim-tree.api").tree.open()
-    end
-  end
-})
+-- None currently
 
 ----------- NVIM CONFIG AND PLUGINS -----------
 
 require('config.lazy')
 
-require('nvim-tree').setup({
-  sort = {
-    sorter = 'case_sensitive',
-  },
-  view = {
-    width = 40,
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = false,
-    git_ignored = false,
-  },
-})
+require('neo-tree').setup {
+    filesystem = {
+        filtered_items = {
+            visible = true,
+            hide_dotfiles = false,
+            hide_gitignored = true,  -- show gitignored, but faint
+            never_show = { ".git" },  -- don't show those at all
+        },
+    },
+    window = {
+        position = "float",
+        popup = {
+            size = { height = "80%", width = "60%" },
+            position = "50%",
+        },
+    }
+}
 
+require("telescope").setup {
+    defaults = {
+        wrap_results = true,  -- wrap left hand side search results
+    }
+}
 
 -- Obtain LSP name to display inside Lualine status bar
 local function lsp_server_name()
@@ -99,16 +124,17 @@ require('lualine').setup({
     options = { theme = 'material' },
     -- Lualine organizes the status bar as sections a,b,c (left) and x,y,z (right)
     sections = {
-        lualine_b = { 'diff' },
-    -- display relative path. w/o lualine in pure nvim, use this instead: vim.opt.statusline = '%{expand("%:.")}' 
-        lualine_c = { {'filename', path = 1} },
-    -- display active LSP using above local function
+        -- display relative path. w/o lualine in pure nvim, use this instead: vim.opt.statusline = '%{expand("%:.")}' 
+        lualine_b = { {'filename', path = 1} },
+        -- display Git diff status
+        lualine_c = { { 'diff' } },
+        -- display active LSP using above local function
         lualine_y = { lsp_server_name }
     },
     inactive_sections = {
         lualine_a = {},
-        lualine_b = {},
-        lualine_c = { {'filename', path = 1} },
+        lualine_b = { {'filename', path = 1} },
+        lualine_c = {},
         lualine_y = {},
         lualine_z = {}
     }
