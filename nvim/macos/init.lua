@@ -13,6 +13,9 @@ vim.g.mapleader = " "
 vim.o.listchars = 'space:·,trail:￮,nbsp:+,tab:▏ ,eol:↴'
 vim.o.list = true
 
+-- Enable Gruvbox background
+vim.o.background = "dark" -- or "light" for light mode
+
 -- Indent by using spaces instead of tabs
 vim.o.expandtab = true
 vim.o.softtabstop = 4
@@ -24,6 +27,10 @@ vim.opt.smartcase = true
 vim.opt.showmode = false  -- hide mode since we use lualine to display it
 -- use thin blinking cursor everywhere. guicorsor settings are only partly applied by iTerm.
 vim.opt.guicursor = "n-v-c-sm:ver25-blinkon1,i-ci-ve:ver25-blinkon1,r-cr-o:ver25-blinkon1"
+-- 6 line gap to top/bottom of window when scrolling
+vim.opt.scrolloff = 6
+-- Vertical line to indicate 120 char length
+vim.opt.colorcolumn = "120"
 
 -- Window settings (wo)
 vim.wo.number = true
@@ -34,7 +41,7 @@ vim.api.nvim_set_hl(0, 'GitGutterAdd', { fg='#009900' })
 -- use system clipboard for yank
 vim.api.nvim_set_option('clipboard', 'unnamed')
 
------------ KEY REMAPPINGS -----------
+----------- KEY (RE)MAPPINGS -----------
 
 -- Move between windows
 local function switch_window()
@@ -61,17 +68,18 @@ map('n', '<leader>g', ':Telescope live_grep<CR>', { noremap = true, silent = tru
 -- open Git blame
 map('n', '<leader>b', ':Git blame<CR>', { noremap = true, silent = true })
 
+-- copy absolute path of current buffer
+map('n', '<leader>p', ':let @+=@%<CR>', { noremap = true, silent = true })
+
+-- increase vertical size of current split
+map('n', '<leader>r', ':vertical resize +15<CR>', { noremap = true, silent = true })
+
 -- Apply single indents in visual mode without leaving visual mode afterwards
 map('v', '<', '<gv', { noremap = true, silent = true })
 map('v', '>', '>gv', { noremap = true, silent = true })
 
 -- use q to toggle floating Neotree window. n is already used by 'next search result' and t by 'open in new tab' by Neotree itself 
 map('n', 'q', ":lua require('neo-tree.command').execute({ position = 'float', toggle = true })<CR>", { noremap = true, silent = true })
-
------------ COMMAND REMAPPINGS -----------
-
--- map :qt to close tab
-vim.cmd('cabbrev qt tabclose') -- can't use nvim_create_user_command bc it only works with Uppercase remappings
 
 ----------- AUTOCMDS -----------
 -- None currently
@@ -139,3 +147,12 @@ require('lualine').setup({
         lualine_z = {}
     }
 })
+
+
+----------- COMMAND REMAPPINGS -----------
+
+-- apply colorscheme
+vim.cmd([[colorscheme gruvbox]])  -- must be executed after Lazy config is loaded so that the colorscheme plugin is already loaded
+
+-- map :qt to close tab
+vim.cmd('cabbrev qt tabclose') -- can't use nvim_create_user_command bc it only works with Uppercase remappings
