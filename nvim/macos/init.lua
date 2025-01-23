@@ -107,6 +107,13 @@ require('neo-tree').setup {
 }
 
 require("telescope").setup {
+    pickers = {
+        live_grep = {
+            additional_args = function(opts)
+                return {"--hidden", "--glob=!.git/"}  -- search everywhere, except gitignored files and .git/
+            end
+        },
+    },
     defaults = {
         wrap_results = true,  -- wrap left hand side search results
     }
@@ -137,24 +144,32 @@ local function lsp_server_name()
   return "LSP: " .. table.concat(server_names, ', ') -- Concatenate and return LSP names
 end
 
+-- Returns current cursor location and number of rows of current buffer in this format: current_row/no_of_rows:current_col
+local function cursor_position()
+    local current_row = vim.fn.line('.')
+    local number_of_rows = vim.fn.line('$')
+    local current_col = vim.fn.col('.')
+    return string.format("%d/%d:%d", current_row, number_of_rows, current_col)
+end
 
 require('lualine').setup({
     options = { theme = 'material' },
     -- Lualine organizes the status bar as sections a,b,c (left) and x,y,z (right)
     sections = {
-        -- display relative path. w/o lualine in pure nvim, use this instead: vim.opt.statusline = '%{expand("%:.")}' 
+        -- display relative path. w/o lualine in pure nvim, use this instead: vim.opt.statusline = '%{expand("%:.")}'
         lualine_b = { {'filename', path = 1} },
         -- display Git diff status
         lualine_c = { { 'diff' } },
         -- display active LSP using above local function
-        lualine_y = { lsp_server_name }
+        lualine_y = { lsp_server_name },
+        -- display cursor location and number of rows
+        lualine_z = { cursor_position }
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = { {'filename', path = 1} },
         lualine_c = {},
-        lualine_y = {},
-        lualine_z = {}
+        lualine_x = { cursor_position }  -- display cursor at x because in order to replace the default cursor display
     }
 })
 

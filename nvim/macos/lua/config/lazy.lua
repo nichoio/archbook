@@ -33,6 +33,7 @@ require("lazy").setup({
   -- automatically check for plugin updates
   checker = { enabled = true },
   defaults = {
-      version = "*"  -- install latest SemVer version per plugin
+      version = "*",  -- install latest SemVer version per plugin
+      lazy = false,
   },
 })
