@@ -112,6 +112,16 @@ require("telescope").setup {
     }
 }
 
+-- nvim-treesitter
+require('nvim-treesitter.configs').setup {
+    -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+    ensure_installed = { "lua", "python", "terraform" },
+
+    highlight = {
+        enable = true,
+    },
+}
+
 -- Obtain LSP name to display inside Lualine status bar
 local function lsp_server_name()
   local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })

@@ -7,6 +7,7 @@ return {
             -- Add LSPs to be enabled below. Note that the LSPs must be installed first by providing them in mason-lspconfig.lua
 
             lspconfig.yamlls.setup({})
+            lspconfig.pyright.setup({})
         end
     }
 }
