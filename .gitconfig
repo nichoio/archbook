@@ -1,37 +1,45 @@
 [alias]
-     ap = add -p
-     b = branch
-     cm = commit -m
-     co = checkout
-     cp = cherry-pick
-     diffc = diff --cached
-     s = status -s
-     ss = status
+    ap = add -p
+    b = branch
+    cm = commit -m
+    co = checkout
+    cp = cherry-pick
+    diffc = diff --cached
+    s = status -s
+    ss = status
+    stals = stash list
 
-     # reset current commit. committed diff becomes unstaged
-     rela = reset HEAD~1
+    # reset current commit. committed diff becomes unstaged
+    rela = reset HEAD~1
 
-     # Apply currently staged changes to current commit. Will require force push if this commit was already pushed
-     ams = commit --amend --no-edit
+    # Apply currently staged changes to current commit. Will require force push if this commit was already pushed
+    ams = commit --amend --no-edit
 
-     # Move the chosen branch tip to HEAD. Will require force push if branch already pushed
-     # After this, check out name-of branch to point HEAD to this branch
-     mvhead = "!git branch --force $1 HEAD #"
+    # Move the chosen branch tip to HEAD. Will require force push if branch already pushed
+    # After this, check out name-of branch to point HEAD to this branch
+    mvhead = "!git branch --force $1 HEAD #"
 
-     # commit history. hide commits descending from HEAD, hide rebased commits.
-     t = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
-     ## show ALL commits
-     tt = log --reflog --all --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+    # commit history. hide commits descending from HEAD, hide rebased commits.
+    t = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+    # show ALL commits
+    tt = log --reflog --all --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
 
-     # show all commits changing a file. Run as $ git f [FILENAME]
-     f = log --follow --
-     # show all commits changing a file and show diffs
-     ff = log -p --follow --
+    # show all commits changing a file. Run as $ git f [FILENAME]
+    f = log --follow --
+    # show all commits changing a file and show diffs
+    ff = log -p --follow --
+
+    # show nth stash entry, 0 is most recent one. Run as $ git stacat [NUMBER]
+    stacat = stash show -p
+
+    # Show all files which are affected by merge conflict
+    # Simplified version of https://stackoverflow.com/a/41249851/6312338
+    cfl = "!f() { git diff -S '<<<<<<< HEAD' -S '=======' -S '>>>>>>>' HEAD; }; f"
 
 [push]
-     autoSetupRemote = true
+    autoSetupRemote = true
 
 [core]
-     editor = "vim"
+    editor = "vim"
 
 # TODO: add delta config
