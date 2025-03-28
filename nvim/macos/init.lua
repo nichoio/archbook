@@ -49,6 +49,7 @@ local function switch_window()
 end
 
 local map = vim.api.nvim_set_keymap
+
 -- switch windows by just CTRL+W. Function callback is needed as workaround to surpress default CTRL+W behavior.
 map('n', '<C-w>', '', {noremap = true, silent = true, callback = switch_window})
 
@@ -130,6 +131,7 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- Obtain LSP name to display inside Lualine status bar
+-- TODO: check if this can be replaced by Lualine's new feature lsp_status
 local function lsp_server_name()
   local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
   if next(buf_clients) == nil then

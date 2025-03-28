@@ -6,7 +6,7 @@ return {
 	    -- External dependencies:
 	    -- yamlls: npm
             require('mason-lspconfig').setup({
-                ensure_installed = { 'pyright', 'yamlls' },
+                ensure_installed = { 'pyright', 'terraformls', 'yamlls' },
                 automatic_installation = true,
             })
         end
