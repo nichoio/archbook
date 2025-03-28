@@ -21,7 +21,7 @@ alias tf='terraform'
 
 # extend omz lib's grep alias
 # grep + ignore several dirs. grep can still be applied to excluded dirs manually
-alias grep='grep -in --color=auto --exclude="*.bin" --exclude="*.msgpack" --exclude="*.svg" --exclude="*.js.map" --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.terraform,dist,test,tests,node_modules}'
+alias grep='grep -in --color=auto --exclude="*.bin" --exclude="*.msgpack" --exclude="*.svg" --exclude="*.js.map" --exclude="*.pack.js" --exclude="package-lock.json*" --exclude="*.pyc" --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.terraform,dist,node_modules,.next,.nx,venv}'
 alias cgrep='grep -C 2'
 alias ccgrep='grep -C 5'
 
