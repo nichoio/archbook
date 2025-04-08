@@ -18,6 +18,7 @@ alias kallny='(){kubectl api-resources --verbs=list --namespaced -o name  | xarg
 alias kname='(){kubectl get po,service,rs,deploy,sts,job,pvc,cm,secret,sa,role,rolebinding,netpol,ing -n $1}'
 
 alias tf='terraform'
+alias dc='docker compose'
 
 # extend omz lib's grep alias
 # grep + ignore several dirs. grep can still be applied to excluded dirs manually
