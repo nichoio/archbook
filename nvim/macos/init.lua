@@ -117,6 +117,17 @@ require("telescope").setup {
     },
     defaults = {
         wrap_results = true,  -- wrap left hand side search results
+        -- map Shift + up/down to cycle through history. Have keybindings here to only have them active when Telescope is used
+        mappings = {
+            i = {
+                ["<S-Down>"] = require('telescope.actions').cycle_history_next,
+                ["<S-Up>"] = require('telescope.actions').cycle_history_prev,
+            },
+            n = {
+                ["<S-Down>"] = require('telescope.actions').cycle_history_next,
+                ["<S-Up>"] = require('telescope.actions').cycle_history_prev,
+            },
+        },
     }
 }
 
