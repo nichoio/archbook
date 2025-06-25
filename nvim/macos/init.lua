@@ -31,6 +31,10 @@ vim.opt.guicursor = "n-v-c-sm:ver25-blinkon1,i-ci-ve:ver25-blinkon1,r-cr-o:ver25
 vim.opt.scrolloff = 6
 -- Vertical line to indicate 120 char length
 vim.opt.colorcolumn = "120"
+-- Folding by utilizing Treesitter - use za to fold/unfold
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldenable = false -- don't fold anything at file opening
 
 -- Window settings (wo)
 vim.wo.number = true
@@ -79,7 +83,10 @@ map('n', '<leader>r', ':vertical resize +15<CR>', { noremap = true, silent = tru
 map('v', '<', '<gv', { noremap = true, silent = true })
 map('v', '>', '>gv', { noremap = true, silent = true })
 
--- use q to toggle floating Neotree window. n is already used by 'next search result' and t by 'open in new tab' by Neotree itself 
+-- Search in selection when visual mode is used
+map('v', '/', '<Esc>/\\%V', { noremap = true, silent = true })
+
+-- use q to toggle floating Neotree window. n is already used by 'next search result' and t by 'open in new tab' by Neotree itself
 map('n', 'q', ":lua require('neo-tree.command').execute({ position = 'float', toggle = true })<CR>", { noremap = true, silent = true })
 
 ----------- AUTOCMDS -----------
