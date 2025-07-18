@@ -19,6 +19,7 @@ alias kname='(){kubectl get po,service,rs,deploy,sts,job,pvc,cm,secret,sa,role,r
 
 alias tf='terraform'
 alias dc='docker compose'
+alias k='kubectl'
 
 # extend omz lib's grep alias
 # grep + ignore several dirs. grep can still be applied to excluded dirs manually
