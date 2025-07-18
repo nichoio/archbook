@@ -39,6 +39,10 @@ vim.opt.foldenable = false -- don't fold anything at file opening
 -- Window settings (wo)
 vim.wo.number = true
 
+-- Diagnostics settings
+-- Display LSP error if and only if cursor is on the line of the error
+vim.diagnostic.config({ virtual_text = false, virtual_lines = { current_line = true }, })
+
 -- API settings (api)
 -- Change Git gutter color to green for added lines
 vim.api.nvim_set_hl(0, 'GitGutterAdd', { fg='#009900' })
@@ -148,22 +152,6 @@ require('nvim-treesitter.configs').setup {
     },
 }
 
--- Obtain LSP name to display inside Lualine status bar
--- TODO: check if this can be replaced by Lualine's new feature lsp_status
-local function lsp_server_name()
-  local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
-  if next(buf_clients) == nil then
-    return 'No LSP' -- Show when no LSP is attached
-  end
-
-  -- Collect the names of active LSP servers
-  local server_names = {}
-  for _, client in pairs(buf_clients) do
-    table.insert(server_names, client.name)
-  end
-  return "LSP: " .. table.concat(server_names, ', ') -- Concatenate and return LSP names
-end
-
 -- Returns current cursor location and number of rows of current buffer in this format: current_row/no_of_rows:current_col
 local function cursor_position()
     local current_row = vim.fn.line('.')
@@ -180,8 +168,8 @@ require('lualine').setup({
         lualine_b = { {'filename', path = 1} },
         -- display Git diff status
         lualine_c = { { 'diff' } },
-        -- display active LSP using above local function
-        lualine_y = { lsp_server_name },
+        -- display warnings and errors found by currently active LSP
+        lualine_y = { { 'diagnostics', sources = {'nvim_lsp'} } },
         -- display cursor location and number of rows
         lualine_z = { cursor_position }
     },
