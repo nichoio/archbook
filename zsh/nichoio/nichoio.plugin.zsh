@@ -102,3 +102,7 @@ function s3lastmod(){
         aws s3api list-objects-v2 --bucket $1 --query 'sort_by(Contents, &LastModified)[-1]'
     fi
 }
+
+# Nvim
+
+alias vim='nvim'
