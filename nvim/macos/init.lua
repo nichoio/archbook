@@ -49,6 +49,9 @@ vim.diagnostic.config({ virtual_text = false, virtual_lines = { current_line = t
 -- API settings (api)
 -- Change Git gutter color to green for added lines
 vim.api.nvim_set_hl(0, 'GitGutterAdd', { fg='#009900' })
+-- Fix color scheme for render-markdown header colors
+vim.api.nvim_set_hl(0, 'RenderMarkdownH1Bg', { bg = '#587559' })
+vim.api.nvim_set_hl(0, 'RenderMarkdownH4Bg', { bg = '#2c332c' })
 -- use system clipboard for yank
 vim.api.nvim_set_option('clipboard', 'unnamed')
 
