@@ -62,6 +62,12 @@ local function switch_window()
   vim.cmd('wincmd w') -- equivalent to <C-w>w
 end
 
+-- Copy current line, but without newline char at end of line
+local function copy_line_without_newline()
+    local line = vim.api.nvim_get_current_line()
+    vim.fn.setreg('+', line)  -- Copy to system clipboard
+end
+
 local map = vim.api.nvim_set_keymap
 
 -- switch windows by just CTRL+W. Function callback is needed as workaround to surpress default CTRL+W behavior.
@@ -85,6 +91,9 @@ map('n', '<leader>b', ':Git blame<CR>', { noremap = true, silent = true })
 
 -- copy absolute path of current buffer
 map('n', '<leader>p', ':let @+=@%<CR>', { noremap = true, silent = true })
+
+-- copy current line withour newline
+map('n', 'YY', '', { noremap = true, silent = true, callback = copy_line_without_newline })
 
 -- increase vertical size of current split
 map('n', '<leader>r', ':vertical resize +15<CR>', { noremap = true, silent = true })
