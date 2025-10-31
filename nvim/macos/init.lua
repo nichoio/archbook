@@ -65,7 +65,7 @@ end
 local map = vim.api.nvim_set_keymap
 
 -- switch windows by just CTRL+W. Function callback is needed as workaround to surpress default CTRL+W behavior.
-map('n', '<C-w>', '', {noremap = true, silent = true, callback = switch_window})
+map('n', '<C-w>', '', { noremap = true, silent = true, callback = switch_window })
 
 -- use SHIFT+ARROW_UP/SHIFT+ARROW_DOWN to move cursor fast
 map('n', '<S-Up>', '30k', { noremap = true, silent = true })
@@ -151,7 +151,7 @@ require("telescope").setup {
 -- nvim-treesitter
 require('nvim-treesitter.configs').setup {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-    ensure_installed = { "json", "lua", "python", "terraform" },
+    ensure_installed = { "json", "lua", "python", "terraform", "yaml" },
 
     highlight = {
         enable = true,
@@ -186,7 +186,6 @@ require('lualine').setup({
         lualine_x = { cursor_position }  -- display cursor at x because in order to replace the default cursor display
     }
 })
-
 
 ----------- COMMAND REMAPPINGS -----------
 

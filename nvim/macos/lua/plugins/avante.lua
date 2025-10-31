@@ -28,7 +28,7 @@ return {
       --- The below dependencies are optional,
       "echasnovski/mini.pick", -- for file_selector provider mini.pick
       "nvim-telescope/telescope.nvim", -- Already in nichoio setup
-      "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+      -- "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions - disabled by nichoio until it's clear what it does
       -- "ibhagwan/fzf-lua", -- for file_selector provider fzf - disable by nichoio until it's clear what exactly this is needed for
       "nvim-tree/nvim-web-devicons", -- Already in nichoio setup
       -- "zbirenbaum/copilot.lua", -- for providers='copilot' - disabled by nichoio
