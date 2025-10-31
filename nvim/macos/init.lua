@@ -25,6 +25,9 @@ vim.o.shiftwidth = 2
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.showmode = false  -- hide mode since we use lualine to display it
+-- Enable spell checker
+vim.opt.spell = true
+vim.opt.spelllang = { 'en' }  -- set default spell check language to English
 -- use thin blinking cursor everywhere. guicorsor settings are only partly applied by iTerm.
 vim.opt.guicursor = "n-v-c-sm:ver25-blinkon1,i-ci-ve:ver25-blinkon1,r-cr-o:ver25-blinkon1"
 -- 6 line gap to top/bottom of window when scrolling
