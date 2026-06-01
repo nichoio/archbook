@@ -6,9 +6,9 @@ return {
             local lspconfig = require('lspconfig')
 
             -- Add LSPs to be enabled below. Note that the LSPs must be installed first by providing them in mason-lspconfig.lua
-            lspconfig.pyright.setup({})
-            lspconfig.terraformls.setup({})
-            lspconfig.yamlls.setup({})
+            vim.lsp.enable('pyright')
+            vim.lsp.enable('terraformls')
+            vim.lsp.enable('yamlls')
         end
     }
 }
