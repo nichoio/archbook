@@ -20,3 +20,7 @@ Then, copy the contents of `nvim/macos` to `~/.config/nvim`.
 
 Post setup steps:
 * Treesitter might not be enabled for supported programming languages automatically. In Nvim, you may need to run `:TSEnable highlight` once ever to enable treesitter.
+
+## Skills
+
+Includes Gen AI skills according to [Agent skill specification](https://github.com/agentskills/agentskills). Skills are partly copied from other sources such as like [mattpocock/skills](https://github.com/mattpocock/skills) and partly my own creations.

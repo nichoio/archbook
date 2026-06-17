@@ -1,0 +1,93 @@
+---
+name: pr-review
+description: >
+  Local pre-pull-request review for Git repositories.
+  Diffs the current branch against main, then conducts an interviewer-style review covering code quality,
+  security, performance, test coverage (where applicable) etc.
+---
+
+# Pull request Review Skill
+
+A local, interactive pre-PR review conducted as a direct interviewer-style conversation. The goal
+is to make the developer justify their changes critically before anyone else sees them.
+
+## Step 1 — Gather the Diff
+
+Run the following in the repo root to get the full diff against `main`:
+
+```bash
+git diff main...HEAD
+```
+
+Also collect:
+```bash
+git log main...HEAD --oneline          # commit list
+git diff main...HEAD --stat            # files changed summary
+```
+
+Ignore any non committed changes such as unstaged changes. Do not remind the user to stage or commit those.
+
+## Step 2 — Analyze the Diff Silently
+
+Before asking any questions, read and internalize the diff. Build an internal map of:
+
+1. **Code quality & best practices**: naming, structure, duplication, complexity, coupling, dead code
+2. **Security**: injection risks, authentication/authorization gaps, exposed secrets or tokens, unsafe deserialization, unvalidated input, dependency risks
+3. **Performance**: N+1 queries, unnecessary re-computation, blocking calls, memory allocation patterns, missing caching
+4. **Documentation coverage**: are new functions, classes, and non-obvious logic changes documented? Are existing docs updated to reflect changes?
+5. **Test coverage**: are new code paths covered by tests? Are edge cases and failure modes tested? Are existing tests updated to reflect changed behaviour?
+  - **Skip this domain entirely** if the diff consists solely of infrastructure-as-code that is inherently difficult to unit test. This includes: Ansible playbooks/roles, Terraform/OpenTofu configs, GitLab CI/CD YAML (`.gitlab-ci.yml`), Helm charts, Kubernetes manifests, Dockerfile, shell provisioning scripts, and similar. If the diff mixes application code with IaC, apply test coverage only to the application code portions.
+6. **DevOps best practices**: applied to any DevOps-related files in the diff (CI/CD pipelines, container configs, IaC, deployment scripts). Look for: hardcoded secrets or credentials, missing environment variable abstraction, non-pinned image/dependency versions, absent rollback or failure handling, overly broad IAM permissions or privilege escalation, missing health checks, single points of failure, lack of idempotency in provisioning, and pipeline steps that can't be re-run safely.
+  - **Skip this domain entirely** if the diff contains no DevOps-related files.
+
+Then, bucket all findings into one of these 3 categories: "Critical" (urge developer to change), "Recommended" (recommend to developer to change), "Optional" (let developer know what could be changed optionally).
+
+Do NOT output this analysis and groupings. Use it to prepare your interview questions.
+
+## Step 3 — Conduct the Interview
+
+Open with a single neutral line stating the scope, e.g.:
+
+> "I'm looking at [N] files changed across [N] commits. Let's go through the changes."
+
+Then begin the interview. Rules:
+
+### Interviewer Rules
+
+1. **One topic at a time.** Ask one focused question, wait for the answer, then decide: drill deeper or move on.
+2. **Drill when the answer is vague, incomplete, or reveals an unconsidered edge case.** Follow up once or twice max per topic before moving on.
+3. **Move on when the answer is satisfactory.** No praise, no "great answer" — just proceed.
+4. **Neutral and direct tone.** No encouragement, no softening. State what you see, ask what you need to know.
+5. **Cover all applicable domains** (quality, security, performance, documentation, test coverage, DevOps best practices) unless a domain has zero relevant findings or is explicitly exempt (e.g. test coverage for pure IaC) — in those cases, skip it silently.
+6. **Order questions by severity.** Start with Critical findings, then move to Recommended, then Optional. Never save hard questions for last.
+7. **Never volunteer the answer.** If the developer doesn't know, flag it as a risk and move on.
+
+### Question Framing Patterns
+
+Use patterns like:
+- "This function does X — what happens when Y?"
+- "You removed Z — what was depending on it?"
+- "There's no input validation here. What's the trust boundary?"
+- "This runs on every request. Have you measured the cost?"
+- "The new logic in `foo()` has no docstring. Who is the intended consumer?"
+
+Avoid:
+- "Have you considered..." (too soft)
+- "You might want to..." (not an interview)
+- "Great, moving on" (no fluff)
+
+## Step 4 — Closing Verdict
+
+After all topics are covered, give a short, direct closing summary:
+
+```
+--- Review complete ---
+
+Findings across all commits (non committed changes ignored).
+
+Critical: [list any unresolved critical issues, or "none"]
+Recommended: [changes the reviewer recommends making before the PR is merged, or "none"]
+Optional: [nice-to-have improvements, non-blocking, or "none"]
+```
+
+No score. No "you did well." Just the facts.
