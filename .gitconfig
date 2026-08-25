@@ -36,10 +36,18 @@
     # Simplified version of https://stackoverflow.com/a/41249851/6312338
     cfl = "!f() { git diff -S '<<<<<<< HEAD' -S '=======' -S '>>>>>>>' HEAD; }; f"
 
+    # Show diff of commit.
+    # If it's a merge commit, include only diffs by parent commits of the branch which was merged from.
+    showx = "!f() { \
+        commit=${1:-HEAD}; \
+        base=$(git rev-parse \"$commit^1\"); \
+        git diff \"$base\" \"$commit\"; \
+    }; f"
+
 [push]
     autoSetupRemote = true
 
 [core]
     editor = "vim"
+    pager = "hunk pager"
 
-# TODO: add delta config
