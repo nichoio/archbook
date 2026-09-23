@@ -14,6 +14,7 @@ Preliminary steps:
 * Install lua.  FIXME: provide recommended lua install instructions, check if luarocks is also required
 * Install nvim: `brew install neovim`
 * Install npm: `brew install npm`
+* Install tree-sitter-cli: `brew install tree-sitter-cli`
 * Install dependencies recommended by telescope plugin: `brew install ripgrep`, `brew install fd`
 
 Then, copy the contents of `nvim/macos` to `~/.config/nvim`.

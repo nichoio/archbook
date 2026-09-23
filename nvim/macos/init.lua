@@ -21,6 +21,9 @@ vim.o.expandtab = true
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 
+-- use system clipboard for yank
+vim.o.clipboard = 'unnamed'
+
 -- Editor settings (opt)
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -36,7 +39,7 @@ vim.opt.scrolloff = 6
 vim.opt.colorcolumn = "120"
 -- Folding by utilizing Treesitter - use za to fold/unfold
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false -- don't fold anything at file opening
 
 -- Window settings (wo)
@@ -52,8 +55,6 @@ vim.api.nvim_set_hl(0, 'GitGutterAdd', { fg='#009900' })
 -- Fix color scheme for render-markdown header colors
 vim.api.nvim_set_hl(0, 'RenderMarkdownH1Bg', { bg = '#587559' })
 vim.api.nvim_set_hl(0, 'RenderMarkdownH4Bg', { bg = '#2c332c' })
--- use system clipboard for yank
-vim.api.nvim_set_option('clipboard', 'unnamed')
 
 ----------- KEY (RE)MAPPINGS -----------
 
@@ -158,14 +159,14 @@ require("telescope").setup {
 }
 
 -- nvim-treesitter
-require('nvim-treesitter.configs').setup {
-    -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-    ensure_installed = { "json", "lua", "python", "terraform", "yaml" },
+-- install parsers (already installed parsers are skipped). markdown_inline has no own filetype, it is used by markdown.
+require('nvim-treesitter').install { "json", "lua", "markdown", "markdown_inline", "python", "terraform", "yaml" }
 
-    highlight = {
-        enable = true,
-    },
-}
+-- enable Treesitter highlighting. The main branch doesn't do this automatically.
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { "hcl", "json", "lua", "markdown", "python", "terraform", "terraform-vars", "yaml" },
+    callback = function() vim.treesitter.start() end,
+})
 
 -- Returns current cursor location and number of rows of current buffer in this format: current_row/no_of_rows:current_col
 local function cursor_position()
